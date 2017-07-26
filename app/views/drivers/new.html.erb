@@ -1,0 +1,26 @@
+<%= render partial: "shared/driver_navbar" %>
+<h1><span class="log-in">Create A New Account</span></h1>
+
+<%= form_for(@driver) do |f| %>
+
+<%= f.label :first_name %>
+<%= f.text_field :first_name, placeholder: "first_name" %>
+
+<%= f.label :last_name %>
+<%= f.text_field :last_name, placeholder: "last_name" %>
+
+<%= f.label :phone %>
+<%= f.text_field :phone, placeholder: "phone" %>
+
+  <%= f.label :email %>
+  <%= f.text_field :email, placeholder: "email" %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password, placeholder: "Password" %>
+
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, placeholder: "Password confirmation" %>
+
+  <%= f.submit 'Submit' %>
+
+  <% end %>

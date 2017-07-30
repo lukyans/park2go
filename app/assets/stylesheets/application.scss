@@ -12,9 +12,15 @@
  *
  *= require_tree .
  *= require_self
- 
- */
 
- @import "bootstrap-sprockets";
+ */
+@import "bootstrap-sprockets";
 @import "bootstrap";
 @import 'bootstrap/theme';
+
+html body {
+  background: #ece9e6; /* fallback for old browsers */
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+  // background: url("Parker.jpg");
+  // background-size: 1800px 800px;
+ }

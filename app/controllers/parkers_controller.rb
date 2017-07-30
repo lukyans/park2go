@@ -2,6 +2,7 @@ class ParkersController < ApplicationController
 
   def index
     @parker = current_parker
+    @drivers = Driver.all
   end
 
   def new
@@ -13,7 +14,7 @@ class ParkersController < ApplicationController
     if @parker.save
       session[:parker_id] = @parker.id
       flash[:success] = "Welcome #{@parker.email}"
-      redirect_to root_path
+      redirect_to parkers_path
     else
       flash[:message] = "Try again"
       render :new

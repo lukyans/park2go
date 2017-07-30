@@ -15,9 +15,11 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
 gem 'bootstrap-social-rails'
 gem 'jquery-rails'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
+  gem 'faker', '~> 1.6', '>= 1.6.3'
 end
 
 group :development do

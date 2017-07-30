@@ -23,9 +23,8 @@ ActiveRecord::Schema.define(version: 20170726001620) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "location"
-    t.string "lat"
-    t.string "lng"
+    t.float "lat"
+    t.float "lng"
   end
 
   create_table "parkers", force: :cascade do |t|
@@ -34,9 +33,8 @@ ActiveRecord::Schema.define(version: 20170726001620) do
     t.string "phone"
     t.string "email"
     t.string "password_digest"
-    t.string "location"
-    t.string "lat"
-    t.string "lng"
+    t.float "lat"
+    t.float "lng"
   end
 
 end

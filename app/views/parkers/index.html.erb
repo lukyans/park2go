@@ -1,167 +1,31 @@
 <%= render partial: "shared/parker_navbar" %>
-<% if current_parker %>
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>Geolocation</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-9">
-    <style>
-      #map {
-        /*margin-left: 800px;*/
-        height: 700px;
-        width: 800px;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+<head>
+  <!DOCTYPE html>
+  <title>Geolocation</title>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-9">
   </head>
-  <body>
-  <div class="container">
-    <div class="media col-md-8">
-    <div id="map"></div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-
-      var map
-      var infoWin;
-      var pos = {}
-
-        function initMap() {
-          var pyrmont = {lat: 39.742043, lng:  -104.991531};
-
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: pyrmont,
-            zoom: 13
-          });
-
-          infoWin = new google.maps.InfoWindow();
-          var service = new google.maps.places.PlacesService(map);
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            //displaying all drivers
-            var drivers = <%= @drivers.to_json.html_safe %>
-            var driversLocations = drivers.map(function(driver){
-              return {"lat": driver.lat, "lng": driver.lng}
-            })
-            var marker
-            var info
-            var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
-            for ( var i = 0; i < driversLocations.length; i++) {
-              marker = new google.maps.Marker({
-               position: new google.maps.LatLng(driversLocations[i].lat, driversLocations[i].lng),
-               map: map,
-               animation: google.maps.Animation.DROP,
-               icon: image,
-               driver: {first_name: drivers[i].first_name, last_name: drivers[i].last_name, phone: drivers[i].phone, email: drivers[i].email, image: "driver1.jpg"}
-             })
-
-              info = new google.maps.InfoWindow({
-                content: '<b>Driver:</b> ' + drivers[i].first_name + '&nbsp;' +drivers[i].last_name + '<br>'
-                + '<b>Phone:</b> ' + drivers[i].phone + '<br>'
-
-              })
-              marker.addListener('click', function() {
-                //info.open(marker.get('map'), marker);
-                $('.driver-title').text('DRIVER')
-                $('.driver-first-name').text('First name: ' + this.driver.first_name)//+ info.content.split(' ')[1].split('&')[0])
-                $('.driver-last-name').text('Last name: ' + this.driver.last_name)//+ info.content.split(' ')[1].split('&')[1].split('<br>')[0].split(';')[1])
-                $('.driver-phone').text('Phone: ' + this.driver.phone)//+ info.content.split('<br>')[1].split(' ')[1])
-// debugger
-                $('.image').text('<img id="theImg" src="driver1.jpg" />')
-                return marker
-                $('.accept').text('ACCEPT').on('click', function(marker){
-                  debugger
-                  $.ajax({
-                    url: `/api/v1/driver/${this.driver.id}`,
-                    method: "PUT",
-                    data: {active: false}
-                  }).then(changeStatus)
-              //   function changeStatus(data){
-              //
-              })
-                // }
-              })
-            }
-
-            //add location to parker
-            var parker = <%= @parker.to_json.html_safe %>
-              $.ajax({
-                url: `/api/v1/parkers/${parker.id}`,
-                method: "PUT",
-                data: {location: pos}
-              }).done()
-
-              var marker = new google.maps.Marker({
-                position: pos,
-                map: map,
-                icon: {
-                  path: google.maps.SymbolPath.CIRCLE,
-                  scale: 8
-                },
-              })
-            // infoWin.setPosition(pos);
-            // infoWin.setContent("I'm a parker and I'm here");
-            // infoWin.open(map);
-            map.setCenter(pos);
-          }, function() {
-            handleLocationError(true, infoWin, map.getCenter());
-          });
-        } else {
-          handleLocationError(false, infoWin, map.getCenter());
-        }
-      }
-
-      function createMarker(place) {
-        var placeLoc = place.geometry.location;
-        var marker = new google.maps.Marker({
-          map: map,
-          position: place.geometry.location
-        });
-
-        google.maps.event.addListener(marker, 'click', function() {
-          infoWin.setContent(place.name);
-          infoWin.open(map, this);
-        });
-      }
-
-      function handleLocationError(browserHasGeolocation, infoWin, pos) {
-        infoWin.setPosition(pos);
-        infoWin.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-      }
-    </script>
-  </head>
-  <body>
-    <div id="map"></div>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8JBGTsrqQTVrv30vPBM1dy4JwQDdu9mw&callback=initMap&libraries=places,visualization">
-    </script>
-  </div>
-
-  <div class="col-md-3">
-    <div class='driver'>
-      <h3 class='driver-title'></h3>
-      <div class='image' id="theDiv"> Where is the image?</div>
-      <h3 class="driver-first-name"></h3>
-      <h3 class="driver-last-name"></h3>
-      <h3 class="driver-phone"></h3>
-      <h3 class="accept"></h3>
-    </div>
-  </div>
-</div>
-  </body>
+    <body>
+      <% if current_parker %>
+        <div class="container">
+          <div class="col-md-4">
+            <div class='driver'>
+              <!-- <div class="driver-id" data-driver-id=<%#=driver.id%>></div> -->
+              <h3 class='driver-title'></h3>
+              <div class='image'></div>
+              <h3 class="driver-first-name"></h3>
+              <h3 class="driver-last-name"></h3>
+              <h3 class="driver-phone"></h3>
+              <h3 class="accept"></h3>
+            </div>
+          </div>
+          <div class="media col-md-8">
+          <div id="map"></div>
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+           <%= render 'googlemap'%>
+        <%= render 'map_api'%>
+      <% else %>
+      <%end%>
+    </body>
 </html>
-<% else %>
-<h3>Here should be a general info for drivers.<br>
-If you go ahead and sign in, you should see a map.</h3>
-<%end%>

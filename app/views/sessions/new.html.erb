@@ -1,13 +1,17 @@
-
-<h1><span class="log-in">Log in</span>
-
+<%= render partial: "shared/navbar" %>
+<div class="form-2">
+  <h1><span class="log-in">Log in</span>
   <%=  form_for(:session, url: login_path) do |f| %>
-
-  <%= f.label :email %>
-  <%= f.text_field :email, placeholder: "email" %>
-
-  <%= f.label :password %>
-  <%= f.password_field :password, placeholder: "Password" %>
-
-    <%= f.submit "Log In" %>
+    <p class="float">
+      <%= f.label :email %>
+      <%= f.text_field :email, placeholder: "email" %>
+    </p>
+    <p class="float">
+      <%= f.label :password %>
+      <%= f.password_field :password, placeholder: "Password" %>
+    </p>
+    <p class="clearfix">
+      <%= f.submit "Log In" %>
+    </p>
 <% end %>
+</div>

@@ -15,6 +15,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
 gem 'bootstrap-social-rails'
 gem 'jquery-rails'
+gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

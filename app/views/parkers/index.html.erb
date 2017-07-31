@@ -5,7 +5,7 @@
   <head>
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+    <meta charset="utf-9">
     <style>
       #map {
         /*margin-left: 800px;*/
@@ -20,6 +20,8 @@
     </style>
   </head>
   <body>
+  <div class="container">
+    <div class="media col-md-8">
     <div id="map"></div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
@@ -51,6 +53,7 @@
               return {"lat": driver.lat, "lng": driver.lng}
             })
             var marker
+            var info
             var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
             for ( var i = 0; i < driversLocations.length; i++) {
               marker = new google.maps.Marker({
@@ -58,19 +61,36 @@
                map: map,
                animation: google.maps.Animation.DROP,
                icon: image,
-               driver: {first_name: drivers[i].first_name, last_name: drivers[i].last_name, phone: drivers[i].phone, email: drivers[i].email}
+               driver: {first_name: drivers[i].first_name, last_name: drivers[i].last_name, phone: drivers[i].phone, email: drivers[i].email, image: "driver1.jpg"}
+             })
+
+              info = new google.maps.InfoWindow({
+                content: '<b>Driver:</b> ' + drivers[i].first_name + '&nbsp;' +drivers[i].last_name + '<br>'
+                + '<b>Phone:</b> ' + drivers[i].phone + '<br>'
+
+              })
+              marker.addListener('click', function() {
+                //info.open(marker.get('map'), marker);
+                $('.driver-title').text('DRIVER')
+                $('.driver-first-name').text('First name: ' + this.driver.first_name)//+ info.content.split(' ')[1].split('&')[0])
+                $('.driver-last-name').text('Last name: ' + this.driver.last_name)//+ info.content.split(' ')[1].split('&')[1].split('<br>')[0].split(';')[1])
+                $('.driver-phone').text('Phone: ' + this.driver.phone)//+ info.content.split('<br>')[1].split(' ')[1])
+// debugger
+                $('.image').text('<img id="theImg" src="driver1.jpg" />')
+                return marker
+                $('.accept').text('ACCEPT').on('click', function(marker){
+                  debugger
+                  $.ajax({
+                    url: `/api/v1/driver/${this.driver.id}`,
+                    method: "PUT",
+                    data: {active: false}
+                  }).then(changeStatus)
+              //   function changeStatus(data){
+              //
+              })
+                // }
               })
             }
-
-            google.maps.event.addListener(marker, 'click', function (data) {
-              debugger
-                window.location = drivers_path;
-            });
-            // debugger
-
-            google.maps.event.addDomListener(marker, 'click', function() {
-              window.location.href = 'http://www.google.co.uk/';
-            });
 
             //add location to parker
             var parker = <%= @parker.to_json.html_safe %>
@@ -126,6 +146,19 @@
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8JBGTsrqQTVrv30vPBM1dy4JwQDdu9mw&callback=initMap&libraries=places,visualization">
     </script>
+  </div>
+
+  <div class="col-md-3">
+    <div class='driver'>
+      <h3 class='driver-title'></h3>
+      <div class='image' id="theDiv"> Where is the image?</div>
+      <h3 class="driver-first-name"></h3>
+      <h3 class="driver-last-name"></h3>
+      <h3 class="driver-phone"></h3>
+      <h3 class="accept"></h3>
+    </div>
+  </div>
+</div>
   </body>
 </html>
 <% else %>

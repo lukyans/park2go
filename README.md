@@ -1,24 +1,35 @@
-# README
+# Park2go
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The Park2go is an app that provides a client (driver) to request a parker (person) to seat in the car that is parked at the specific address by client, while he is away (from 30min to 2 hours)
 
-Things you may want to cover:
 
-* Ruby version
+## Production website
 
-* System dependencies
+(Park2go)[https://park2go2.herokuapp.com/]
 
-* Configuration
+#### Setup
 
-* Database creation
+1. Clone down this repo:
 
-* Database initialization
+`https://github.com/lukyans/park2go`
 
-* How to run the test suite
+2. Select folder
 
-* Services (job queues, cache servers, search engines, etc.)
+`$ cd /park2go`
 
-* Deployment instructions
+3. Install gems
 
-* ...
+`$ bundle install`
+
+4. Create and migrate database
+
+`$ rake db:create`
+`$ rake db:migrate`
+
+5. Start local server
+
+`$ rails server`
+
+7. In you browser visit this page
+
+`http://localhost:3000`

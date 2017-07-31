@@ -1,0 +1,117 @@
+<script>
+  var map
+  var infoWin;
+  var pos = {}
+
+  function initMap() {
+    var pyrmont = {lat: 39.742043, lng:  -104.991531};
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: pyrmont,
+      zoom: 15
+    });
+
+    infoWin = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        //displaying all drivers
+        var drivers = <%= @drivers.to_json.html_safe %>
+        var driversLocations = drivers.map(function(driver){
+          return {"lat": driver.lat, "lng": driver.lng}
+        })
+        var marker
+        var info
+        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        for ( var i = 0; i < driversLocations.length; i++) {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(driversLocations[i].lat, driversLocations[i].lng),
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: image,
+            driver: {first_name: drivers[i].first_name, last_name: drivers[i].last_name, phone: drivers[i].phone, email: drivers[i].email, image: "driver1.jpg"}
+          })
+          info = new google.maps.InfoWindow({
+            content: '<b>Driver:</b> ' + drivers[i].first_name + '&nbsp;' +drivers[i].last_name + '<br>'
+            + '<b>Phone:</b> ' + drivers[i].phone + '<br>'
+          })
+          marker.addListener('click', function() {
+            //info.open(marker.get('map'), marker);
+            $('.driver-title').text('DRIVER')
+            //$('.driver-id').append(this.driver.id)
+            $('.driver-first-name').text('First name: ' + this.driver.first_name)//+ info.content.split(' ')[1].split('&')[0])
+            $('.driver-last-name').text('Last name: ' + this.driver.last_name)//+ info.content.split(' ')[1].split('&')[1].split('<br>')[0].split(';')[1])
+            $('.driver-phone').text('Phone: ' + this.driver.phone)//+ info.content.split('<br>')[1].split(' ')[1])
+            $('.image').empty()
+            $('.image').append('<img src="http://imgur.com/mG8D3rR.png" class="img-circle" alt="Cinque Terre" width="304" height="236" style="margin-right:20em;">')
+            $('.accept').text('ACCEPT')
+            $('.accept').on('click', function(data){
+              $.ajax({
+                url: `/api/v1/driver/${this.driver.id}`,
+                method: "PUT",
+                data: {active: false}
+              }).then(changeStatus)
+              //   function changeStatus(data){
+            })
+          })
+        }
+
+        //add location to parker
+        var parker = <%= @parker.to_json.html_safe %>
+        $.ajax({
+          url: `/api/v1/parkers/${parker.id}`,
+          method: "PUT",
+          data: {location: pos}
+        }).done()
+
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8
+          },
+        })
+
+        var circle = new google.maps.Circle({
+          strokeColor: "#c3fc49",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#c3fc49",
+          fillOpacity: 0.35,
+          map: map,
+          radius: 1000
+        });
+
+        circle.bindTo('center', marker, 'position');
+        map.setCenter(pos);
+      }, function() {
+      handleLocationError(true, infoWin, map.getCenter());
+      });
+    } else {
+      handleLocationError(false, infoWin, map.getCenter());
+    }
+  }
+  // function createMarker(place) {
+  //   var placeLoc = place.geometry.location;
+  //   var marker = new google.maps.Marker({
+  //     map: map,
+  //     position: place.geometry.location
+  //   });
+  //
+  //   google.maps.event.addListener(marker, 'click', function() {
+  //     infoWin.setContent(place.name);
+  //     infoWin.open(map, this);
+  //   });
+  // }
+  function handleLocationError(browserHasGeolocation, infoWin, pos) {
+    infoWin.setPosition(pos);
+    infoWin.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+  }
+</script>

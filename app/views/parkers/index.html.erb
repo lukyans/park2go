@@ -19,9 +19,19 @@
       }
     </style>
   </head>
-  <body>
+  <body class='user-body'>
   <div class="container">
-    <div class="media col-md-8">
+    <div class="col-md-3">
+      <div class='driver'>
+        <h3 class='driver-title'></h3>
+        <div class='image' id="theDiv"> Where is the image?</div>
+        <h3 class="driver-first-name"></h3>
+        <h3 class="driver-last-name"></h3>
+        <h3 class="driver-phone"></h3>
+        <h3 class="accept"></h3>
+      </div>
+    </div>
+    <div class="media col-md-9">
     <div id="map"></div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
@@ -35,7 +45,7 @@
 
           map = new google.maps.Map(document.getElementById('map'), {
             center: pyrmont,
-            zoom: 13
+            zoom: 15
           });
 
           infoWin = new google.maps.InfoWindow();
@@ -147,21 +157,12 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8JBGTsrqQTVrv30vPBM1dy4JwQDdu9mw&callback=initMap&libraries=places,visualization">
     </script>
   </div>
-
-  <div class="col-md-3">
-    <div class='driver'>
-      <h3 class='driver-title'></h3>
-      <div class='image' id="theDiv"> Where is the image?</div>
-      <h3 class="driver-first-name"></h3>
-      <h3 class="driver-last-name"></h3>
-      <h3 class="driver-phone"></h3>
-      <h3 class="accept"></h3>
-    </div>
-  </div>
 </div>
+
   </body>
 </html>
 <% else %>
-<h3>Here should be a general info for drivers.<br>
-If you go ahead and sign in, you should see a map.</h3>
+<body class='user-body'>
+<h3></h3>
+</body>
 <%end%>

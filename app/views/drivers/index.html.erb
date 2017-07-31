@@ -19,7 +19,19 @@
       }
     </style>
   </head>
-  <body>
+  <body class='user-body'>
+  <div class="container">
+    <div class="col-md-3">
+      <div class='parker'>
+        <h3 class='parker-title'></h3>
+        <div class='image' id="theDiv"> Where is the image?</div>
+        <h3 class="parker-first-name"></h3>
+        <h3 class="parker-last-name"></h3>
+        <h3 class="parker-phone"></h3>
+        <h3 class="accept"></h3>
+      </div>
+    </div>
+    <div class="media col-md-9">
     <div id="map"></div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
@@ -136,7 +148,7 @@
       }
     </script>
   </head>
-  <body>
+<body>
     <div id="map"></div>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8JBGTsrqQTVrv30vPBM1dy4JwQDdu9mw&callback=initMap&libraries=places,visualization">
@@ -144,6 +156,11 @@
   </body>
 </html>
 <% else %>
-<h3>Here should be a general info for drivers.<br>
-If you go ahead and sign in, you should see a map.</h3>
+<body class='user-body'>
+<h3>New York based company called Park2go<br>
+It allows drivers to find parker via mobile app,<br>
+web site and garages that use variable pricing<br>
+based on time and location approximately 30min to 1hour<br><br>
+Go ahead and sign up, to start your first ride.</h3>
+</body>
 <%end%>

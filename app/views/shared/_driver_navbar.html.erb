@@ -6,9 +6,9 @@
       <ul class="nav navbar-nav navbar-right">
       <li class="active"><%= link_to "Create Acount", new_driver_path%></li>
       <% if current_driver %>
-        <li class="navbar-right"><%= link_to "Logout", logout_path %></li>
+        <li class="active"><%= link_to "Logout", logout_path %></li>
       <% else %>
-        <li class="navbar-right"><%= link_to "Sign In", login_path %></li>
+        <li class="active"><%= link_to "Sign In", login_path %></li>
       <% end %>
     </ul>
     </div>

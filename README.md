@@ -30,6 +30,6 @@ The Park2go is an app that provides a client (driver) to request a parker (perso
 
 `$ rails server`
 
-7. In you browser visit this page
+7. In your browser visit this page
 
 `http://localhost:3000`

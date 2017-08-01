@@ -20,8 +20,10 @@
           lng: position.coords.longitude
         };
         //displaying all drivers
-        var drivers = <%= @drivers.to_json.html_safe %>
 
+        var drivers = [<%= @drivers.to_json.html_safe %>]
+// debugger
+        if (drivers != null && drivers.length>1){
         var driversLocations = drivers.map(function(driver){
           return {"lat": driver.lat, "lng": driver.lng}
         })
@@ -89,6 +91,100 @@
         });
 
         circle.bindTo('center', marker, 'position');
+      }
+      //-----------------------------------
+      else if (drivers.length == 1 && drivers[0] != null){
+        // debugger
+        var driversLocations = {"lat": drivers[0].lat, "lng": drivers[0].lng}
+        var marker
+        var info
+        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(driversLocations.lat, driversLocations.lng),
+            map: map,
+            animation: google.maps.Animation.DROP,
+            icon: image,
+            driver: {first_name: drivers[0].first_name, last_name: drivers[0].last_name, phone: drivers[0].phone, email: drivers[0].email}
+          })
+          marker.addListener('click', function() {
+            //info.open(marker.get('map'), marker);
+            $('.driver-title').text('DRIVER')
+            //$('.driver-id').append(this.driver.id)
+            $('.driver-first-name').text('First name: ' + this.driver.first_name)
+            $('.driver-last-name').text('Last name: ' + this.driver.last_name)
+            $('.driver-phone').text('Phone: ' + this.driver.phone)
+            $('.image').empty()
+            $('.image').append('<img src="http://imgur.com/mG8D3rR.png" class="img-circle" alt="Cinque Terre" width="304" height="236" ">')
+            $('.accept').text('ACCEPT')
+            $('.accept').on('click', function(data){
+              $.ajax({
+                url: `/api/v1/driver/${this.driver.id}`,
+                method: "PUT",
+                data: {active: false}
+              }).then(changeStatus)
+              //   function changeStatus(data){
+            })
+          })
+
+        //add location to parker
+        var parker = <%= @parker.to_json.html_safe %>
+        $.ajax({
+          url: `/api/v1/parkers/${parker.id}`,
+          method: "PUT",
+          data: {location: pos}
+        }).done()
+
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8
+          },
+        })
+
+        var circle = new google.maps.Circle({
+          strokeColor: "#c3fc49",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#c3fc49",
+          fillOpacity: 0.35,
+          map: map,
+          radius: 1000
+        });
+
+        circle.bindTo('center', marker, 'position');
+
+      //--------------------
+      }else{
+        //add location to parker
+        var parker = <%= @parker.to_json.html_safe %>
+        $.ajax({
+          url: `/api/v1/parkers/${parker.id}`,
+          method: "PUT",
+          data: {location: pos}
+        }).done()
+
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: {
+            path: google.maps.SymbolPath.CIRCLE,
+            scale: 8
+          },
+        })
+
+        var circle = new google.maps.Circle({
+          strokeColor: "#c3fc49",
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: "#c3fc49",
+          fillOpacity: 0.35,
+          map: map,
+          radius: 1000
+        });
+        circle.bindTo('center', marker, 'position');
+      }
         map.setCenter(pos);
       }, function() {
       handleLocationError(true, infoWin, map.getCenter());

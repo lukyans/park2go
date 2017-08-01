@@ -26,17 +26,15 @@ class SessionsController < ApplicationController
 end
 
   def destroy
-    if current_driver != nil && current_parker == nil
+    if current_driver != nil
       session.clear
       current_driver = nil
       flash[:message] = "Successful logged out Driver."
       redirect_to root_path
-    elsif current_parker !=nil
+    else
       session.clear
       flash[:message] = "Successful logged out Parker."
       redirect_to root_path
-    else
-      flash[:alert] = "Something went wrong!"
     end
   end
 end

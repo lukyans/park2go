@@ -24,10 +24,10 @@
             data: {location: pos}
           }).done()
           //displaying parker
-        var parkers = <%= @parkers.to_json.html_safe %>
-        for(var i=0; i<parkers.length; i++){
-          var lat = parkers[i].lat
-          var lng = parkers[i].lng
+        var parker = <%= @parker.to_json.html_safe %>
+        if (parker != null){
+          var lat = parker.lat
+          var lng = parker.lng
           var parkersLocation = {lat: lat, lng: lng}
           var marker = new google.maps.Marker({
             position: parkersLocation,
@@ -38,7 +38,7 @@
                    path: google.maps.SymbolPath.CIRCLE,
                    scale: 10
                  },
-            parker: {first_name: parkers[i].first_name, last_name: parkers[i].last_name, phone: parkers[i].phone, email: parkers[i].email}
+            parker: {first_name: parker.first_name, last_name: parker.last_name, phone: parker.phone, email: parker.email}
           })
 
           marker.addListener('click', function() {
@@ -50,41 +50,22 @@
             $('.image').empty()
             $('.image').append('<img src="http://imgur.com/EHUKPCS.png" class="img-circle" alt="Cinque Terre" width="304" height="236" ">')
           })
-        }
-        // //displaying all parkers
-        // var parkers = <%= @parkers.to_json.html_safe %>
-        // var locations = parkers.map(function(parker, i){
-        //   return {"lat": parkers[i].lat, "lng": parkers[i].lng}
-        // })
-        // var marker
-        // for ( var i = 0; i < locations.length; i++) {
-        //   marker = new google.maps.Marker({
-        //    position: new google.maps.LatLng(locations[i].lat, locations[i].lng),
-        //    map: map,
-        //    icon: {
-        //           path: google.maps.SymbolPath.CIRCLE,
-        //           scale: 10
-        //         }
-        //   });
-        // }
 
-        //    var marker = new google.maps.Marker({
-        //     // debugger
-        //      //position: parkerLocation,
-        //      map: map,
-        //      icon: {
-        //        path: google.maps.SymbolPath.CIRCLE,
-        //        scale: 10
-        //      }
-        //
-        // })
-
+        var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
+        debugger
+        var marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          icon: image
+        })
+      }else{
         var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
         var marker = new google.maps.Marker({
           position: pos,
           map: map,
           icon: image
         })
+      }
         map.setCenter(pos);
       }, function() {
         handleLocationError(true, infoWin, map.getCenter());

@@ -2,7 +2,7 @@ class DriversController < ApplicationController
 
   def index
     @driver = current_driver
-    @parkers = Parker.all
+    @parker = current_parker
   end
 
   def new

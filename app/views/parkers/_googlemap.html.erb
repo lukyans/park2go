@@ -44,9 +44,9 @@
             //info.open(marker.get('map'), marker);
             $('.driver-title').text('DRIVER')
             //$('.driver-id').append(this.driver.id)
-            $('.driver-first-name').text('First name: ' + this.driver.first_name)//+ info.content.split(' ')[1].split('&')[0])
-            $('.driver-last-name').text('Last name: ' + this.driver.last_name)//+ info.content.split(' ')[1].split('&')[1].split('<br>')[0].split(';')[1])
-            $('.driver-phone').text('Phone: ' + this.driver.phone)//+ info.content.split('<br>')[1].split(' ')[1])
+            $('.driver-first-name').text('First name: ' + this.driver.first_name)
+            $('.driver-last-name').text('Last name: ' + this.driver.last_name)
+            $('.driver-phone').text('Phone: ' + this.driver.phone)
             $('.image').empty()
             $('.image').append('<img src="http://imgur.com/mG8D3rR.png" class="img-circle" alt="Cinque Terre" width="304" height="236" ">')
             $('.accept').text('ACCEPT')
@@ -97,18 +97,6 @@
       handleLocationError(false, infoWin, map.getCenter());
     }
   }
-  // function createMarker(place) {
-  //   var placeLoc = place.geometry.location;
-  //   var marker = new google.maps.Marker({
-  //     map: map,
-  //     position: place.geometry.location
-  //   });
-  //
-  //   google.maps.event.addListener(marker, 'click', function() {
-  //     infoWin.setContent(place.name);
-  //     infoWin.open(map, this);
-  //   });
-  // }
   function handleLocationError(browserHasGeolocation, infoWin, pos) {
     infoWin.setPosition(pos);
     infoWin.setContent(browserHasGeolocation ?

@@ -49,6 +49,7 @@
           var service = new google.maps.places.PlacesService(map);
 
           if (navigator.geolocation) {
+            debugger
             navigator.geolocation.getCurrentPosition(function(position) {
               pos = {
                 lat: position.coords.latitude,

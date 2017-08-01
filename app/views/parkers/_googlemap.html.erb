@@ -21,6 +21,7 @@
         };
         //displaying all drivers
         var drivers = <%= @drivers.to_json.html_safe %>
+
         var driversLocations = drivers.map(function(driver){
           return {"lat": driver.lat, "lng": driver.lng}
         })
@@ -47,7 +48,7 @@
             $('.driver-last-name').text('Last name: ' + this.driver.last_name)//+ info.content.split(' ')[1].split('&')[1].split('<br>')[0].split(';')[1])
             $('.driver-phone').text('Phone: ' + this.driver.phone)//+ info.content.split('<br>')[1].split(' ')[1])
             $('.image').empty()
-            $('.image').append('<img src="http://imgur.com/mG8D3rR.png" class="img-circle" alt="Cinque Terre" width="304" height="236" style="margin-right:20em;">')
+            $('.image').append('<img src="http://imgur.com/mG8D3rR.png" class="img-circle" alt="Cinque Terre" width="304" height="236" ">')
             $('.accept').text('ACCEPT')
             $('.accept').on('click', function(data){
               $.ajax({

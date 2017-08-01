@@ -14,7 +14,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap-sass'
 gem 'bootstrap-social-rails'
-gem 'rails_12factor', group: :production
+gem 'rails_12factor'
 gem "validate_url"
 gem 'jquery-rails'
 

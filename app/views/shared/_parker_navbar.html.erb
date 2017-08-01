@@ -3,11 +3,11 @@
     <div class="navbar-header">
       <a class="navbar-brand"<%= link_to "Park2go", root_path %>></a>
       <ul class="nav navbar-nav navbar-right">
-      <li class="active"><%= link_to "Create Acount", new_parker_path%></li>
+      <li class="active"><%= link_to "Create Account", new_parker_path%></li>
       <% if current_parker %>
-        <li class="active"><%= link_to "Logout", logout_path %></li>
+        <li class="active"><%= link_to "Log Out", logout_path %></li>
       <% else %>
-        <li class="active"><%= link_to "Sign In", login_path %></li>
+        <li class="active"><%= link_to "Log In", login_path %></li>
       <% end %>
     </ul>
     </div>

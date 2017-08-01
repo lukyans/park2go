@@ -24,6 +24,7 @@ group :development, :test do
   gem 'faker', '~> 1.6', '>= 1.6.3'
   gem 'rspec-rails'
   gem 'shoulda-matchers'
+  gem 'capybara'
 end
 
 group :development do

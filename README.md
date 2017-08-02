@@ -1,11 +1,11 @@
 # Park2go
 
-The Park2go is an app that provides a client (driver) to request a parker (person) to seat in the car that is parked at the specific address by client, while he is away (from 30min to 2 hours)
+The Park2go is an app that provides a client (driver) to request a parker (person) to sit in the car that is parked at the specific address by client, while he is away (from 30min to 2 hours)
 
 
 ## Production website
 
-(Park2go)[https://park2go2.herokuapp.com/]
+[Park2go](https://park2go2.herokuapp.com/)
 
 #### Setup
 

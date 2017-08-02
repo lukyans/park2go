@@ -20,9 +20,7 @@
           lng: position.coords.longitude
         };
         //displaying all drivers
-
         var drivers = [<%= @drivers.to_json.html_safe %>]
-// debugger
         if (drivers != null && drivers.length>1){
         var driversLocations = drivers.map(function(driver){
           return {"lat": driver.lat, "lng": driver.lng}
@@ -38,10 +36,6 @@
             icon: image,
             driver: {first_name: drivers[i].first_name, last_name: drivers[i].last_name, phone: drivers[i].phone, email: drivers[i].email, image: "driver1.jpg"}
           })
-          // info = new google.maps.InfoWindow({
-          //   content: '<b>Driver:</b> ' + drivers[i].first_name + '&nbsp;' +drivers[i].last_name + '<br>'
-          //   + '<b>Phone:</b> ' + drivers[i].phone + '<br>'
-          // })
           marker.addListener('click', function() {
             //info.open(marker.get('map'), marker);
             $('.driver-title').text('DRIVER')

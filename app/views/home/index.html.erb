@@ -1,9 +1,11 @@
 
 <body class='body'>
-  <%= render partial: "shared/navbar" %>
-  <% flash.each do |name, msg| %>
-      <h4><%= content_tag :div, msg.html_safe, class: name %></h4>
-    <% end %>
-<font size="10">Make your life easier <br></font>
-  <font size="6">and park at your favorite place with park2go</font>
+ <%= render partial: "shared/navbar" %>
+ <% flash.each do |name, msg| %>
+  <h4><%= content_tag :div, msg.html_safe, class: name %></h4>
+ <% end %>
+ <div class="homepage-text">
+  <font size="10">Make your life easier <br></font>
+  <font size="6">And park at your favorite place with park2go</font>
+ </div>
 </body>

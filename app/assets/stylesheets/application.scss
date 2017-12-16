@@ -27,11 +27,11 @@ html, body {
   margin: 0;
   padding: 0;
   background: image-url("carphone.png");
-  background-size: 1800px 800px;
-  background-position: 25% 100%;
+  background-repeat: no-repeat;
+   background-position: center;
  }
  .homepage-text {
-   margin-left: 20px;
+   margin-left: 7px;
    font-family: sans-serif;
   padding: 0 20px;
   font-size: 20px;
